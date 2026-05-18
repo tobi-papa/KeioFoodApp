@@ -5,10 +5,12 @@ import { Navbar } from '@/components/layout/Navbar'
 import { Footer } from '@/components/layout/Footer'
 import { PlaceGrid } from '@/components/places/PlaceGrid'
 import { PlaceFilters } from '@/components/places/PlaceFilters'
+import { EmbeddedMap } from '@/components/map/EmbeddedMap'
+import { cn } from '@/lib/utils'
 import type { PlaceWithScore } from '@/types'
 
 interface Props {
-  searchParams: Promise<{ q?: string; category?: string; price?: string; cashOnly?: string }>
+  searchParams: Promise<{ q?: string; category?: string; price?: string; cashOnly?: string; tab?: string }>
 }
 
 async function fetchPlaces(searchParams: Awaited<Props['searchParams']>): Promise<PlaceWithScore[]> {
@@ -71,8 +73,38 @@ export default async function HomePage({ searchParams }: Props) {
           <Suspense>
             <PlaceFilters />
           </Suspense>
-          <div className="mt-8">
-            <PlaceGrid places={places} locale={locale} emptyMessage={t('noResults')} />
+          <div className="mt-6">
+            {/* Tab bar */}
+            <div className="flex gap-2 mb-6">
+              <a
+                href={`/?${new URLSearchParams({ ...resolvedParams, tab: 'list' }).toString()}`}
+                className={cn(
+                  'px-4 py-2 rounded-lg text-sm font-medium transition-colors duration-150 cursor-pointer',
+                  resolvedParams.tab !== 'map'
+                    ? 'bg-[var(--ink)] text-white'
+                    : 'bg-slate-100 text-[var(--ink-2)] hover:bg-slate-200'
+                )}
+              >
+                {t('listTab')}
+              </a>
+              <a
+                href={`/?${new URLSearchParams({ ...resolvedParams, tab: 'map' }).toString()}`}
+                className={cn(
+                  'px-4 py-2 rounded-lg text-sm font-medium transition-colors duration-150 cursor-pointer',
+                  resolvedParams.tab === 'map'
+                    ? 'bg-[var(--ink)] text-white'
+                    : 'bg-slate-100 text-[var(--ink-2)] hover:bg-slate-200'
+                )}
+              >
+                {t('mapTab')}
+              </a>
+            </div>
+
+            {resolvedParams.tab === 'map' ? (
+              <EmbeddedMap places={places.map((p) => ({ id: p.id, slug: p.slug, name_en: p.name_en, lat: p.lat, lng: p.lng }))} />
+            ) : (
+              <PlaceGrid places={places} locale={locale} emptyMessage={t('noResults')} />
+            )}
           </div>
         </div>
       </main>

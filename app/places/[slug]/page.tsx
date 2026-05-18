@@ -7,6 +7,7 @@ import { Navbar } from '@/components/layout/Navbar'
 import { Footer } from '@/components/layout/Footer'
 import { RamenScore } from '@/components/reviews/RamenScore'
 import { ReviewList } from '@/components/reviews/ReviewList'
+import { ReviewFormDialog } from '@/components/reviews/ReviewFormDialog'
 import type { ReviewWithGrades, ReviewGrade } from '@/types'
 
 interface Props {
@@ -95,6 +96,13 @@ export default async function PlaceDetailPage({ params }: Props) {
               locale={locale}
             />
           </section>
+          <div className="mt-8">
+            <ReviewFormDialog
+              placeId={place.id}
+              dimensions={dimensions ?? []}
+              locale={locale}
+            />
+          </div>
         </div>
       </main>
       <Footer />

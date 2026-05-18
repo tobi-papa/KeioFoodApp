@@ -1,0 +1,45 @@
+{
+  "nav": {
+    "openInMaps": "Open in Google Maps",
+    "langToggle": "JP"
+  },
+  "home": {
+    "hero": "Find your next favourite spot in Hiyoshi",
+    "listTab": "List",
+    "mapTab": "Map",
+    "searchPlaceholder": "Search places…",
+    "sortByScore": "Sort by score",
+    "nearMe": "Near me",
+    "noResults": "No places found."
+  },
+  "place": {
+    "reviews": "Reviews",
+    "leaveReview": "Leave a Review",
+    "overallScore": "Overall Score",
+    "cashOnly": "Cash only",
+    "hours": "Hours",
+    "wouldRecommend": "Would recommend"
+  },
+  "review": {
+    "displayName": "Your name",
+    "visitedOn": "When did you visit?",
+    "mealOrdered": "What did you order?",
+    "wouldRecommend": "Would you recommend this place?",
+    "comment": "Any comments? (optional)",
+    "submit": "Submit review",
+    "submitting": "Submitting…",
+    "success": "Thanks for your review!"
+  },
+  "filters": {
+    "category": "Category",
+    "price": "Price",
+    "cashOnly": "Cash only"
+  },
+  "admin": {
+    "dashboard": "Dashboard",
+    "places": "Places",
+    "reviews": "Reviews",
+    "settings": "Settings",
+    "logout": "Log out"
+  }
+}

@@ -1,5 +1,7 @@
 import type { Metadata } from 'next'
 import { Archivo, Archivo_Black } from 'next/font/google'
+import { NextIntlClientProvider } from 'next-intl'
+import { getLocale, getMessages } from 'next-intl/server'
 import './globals.css'
 
 const archivo = Archivo({
@@ -21,11 +23,16 @@ export const metadata: Metadata = {
   robots: { index: false },
 }
 
-export default function RootLayout({ children }: { children: React.ReactNode }) {
+export default async function RootLayout({ children }: { children: React.ReactNode }) {
+  const locale = await getLocale()
+  const messages = await getMessages()
+
   return (
-    <html lang="en">
+    <html lang={locale}>
       <body className={`${archivo.variable} ${archivoBold.variable} font-sans antialiased`}>
-        {children}
+        <NextIntlClientProvider messages={messages}>
+          {children}
+        </NextIntlClientProvider>
       </body>
     </html>
   )

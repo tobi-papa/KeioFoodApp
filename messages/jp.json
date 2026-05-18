@@ -1,0 +1,45 @@
+{
+  "nav": {
+    "openInMaps": "Google マップで開く",
+    "langToggle": "EN"
+  },
+  "home": {
+    "hero": "日吉で次のお気に入りを見つけよう",
+    "listTab": "一覧",
+    "mapTab": "地図",
+    "searchPlaceholder": "お店を検索…",
+    "sortByScore": "スコア順",
+    "nearMe": "近くのお店",
+    "noResults": "お店が見つかりませんでした。"
+  },
+  "place": {
+    "reviews": "レビュー",
+    "leaveReview": "レビューを書く",
+    "overallScore": "総合スコア",
+    "cashOnly": "現金のみ",
+    "hours": "営業時間",
+    "wouldRecommend": "おすすめ"
+  },
+  "review": {
+    "displayName": "ニックネーム",
+    "visitedOn": "いつ訪れましたか？",
+    "mealOrdered": "何を注文しましたか？",
+    "wouldRecommend": "このお店を勧めますか？",
+    "comment": "コメント（任意）",
+    "submit": "レビューを送信",
+    "submitting": "送信中…",
+    "success": "レビューありがとうございます！"
+  },
+  "filters": {
+    "category": "カテゴリ",
+    "price": "価格",
+    "cashOnly": "現金のみ"
+  },
+  "admin": {
+    "dashboard": "ダッシュボード",
+    "places": "お店",
+    "reviews": "レビュー",
+    "settings": "設定",
+    "logout": "ログアウト"
+  }
+}

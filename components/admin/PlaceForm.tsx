@@ -2,7 +2,7 @@
 
 import { useState } from 'react'
 import { useRouter } from 'next/navigation'
-import { supabase } from '@/lib/supabase'
+import { createSupabaseBrowserClient } from '@/lib/supabase-browser'
 import { Input } from '@/components/ui/input'
 import { Label } from '@/components/ui/label'
 import { Button } from '@/components/ui/button'
@@ -26,6 +26,7 @@ const PRICE_RANGES = ['¥', '¥¥', '¥¥¥'] as const
 export function PlaceForm({ place, isEdit }: Props) {
   const router = useRouter()
   const [loading, setLoading] = useState(false)
+  const [error, setError] = useState<string | null>(null)
   const [coverFile, setCoverFile] = useState<File | null>(null)
   const [form, setForm] = useState({
     slug: place?.slug ?? '',
@@ -53,7 +54,9 @@ export function PlaceForm({ place, isEdit }: Props) {
   async function handleSubmit(e: React.FormEvent) {
     e.preventDefault()
     setLoading(true)
+    setError(null)
 
+    const supabase = createSupabaseBrowserClient()
     let cover_photo_url = place?.cover_photo_url ?? null
 
     if (coverFile) {
@@ -86,15 +89,23 @@ export function PlaceForm({ place, isEdit }: Props) {
       cover_photo_url,
     }
 
+    let dbError
     if (isEdit && place?.id) {
-      await supabase.from('places').update(payload).eq('id', place.id)
+      const { error } = await supabase.from('places').update(payload).eq('id', place.id)
+      dbError = error
     } else {
-      await supabase.from('places').insert(payload)
+      const { error } = await supabase.from('places').insert(payload)
+      dbError = error
+    }
+
+    if (dbError) {
+      setError(dbError.message)
+      setLoading(false)
+      return
     }
 
     router.push('/admin/places')
     router.refresh()
-    setLoading(false)
   }
 
   const textFields: { id: string; label: string; key: keyof typeof form; required?: boolean }[] = [
@@ -179,6 +190,7 @@ export function PlaceForm({ place, isEdit }: Props) {
         />
       </div>
 
+      {error && <p className="text-sm text-red-500">{error}</p>}
       <Button type="submit" disabled={loading} className="cursor-pointer w-fit">
         {loading ? 'Saving…' : isEdit ? 'Update Place' : 'Create Place'}
       </Button>
